@@ -1,11 +1,50 @@
 :root {
     --highlight-color: red;
+    --black: #101010;
+    --white: #fff;
+}
+
+.text_flip {
+    color: var(--black);
+}
+
+.text_flip--reverse {
+    color: var(--white);
+}
+
+.bg__flip {
+    background: var(--black);
+}
+
+.logo {
+    filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: var(--black);
+    }
+
+    .text_flip {
+        color: var(--white);
+    }
+
+    .text_flip--reverse {
+        color: var(--black);
+    }
+
+    .bg__flip {
+        background: var(--white);
+    }
+    .logo {
+        filter: invert(0);
+    }
 }
 
 .text__highlight {
-    color: var(--highlight-color);
+    color: var(--highlight-color) !important;
 }
 
 .text__highlight--hover:hover {
-    color: var(--highlight-color);
+    color: var(--highlight-color) !important;
 }
