@@ -14,6 +14,11 @@ function Text() {
         root.style.setProperty('--highlight-color', color);
     }
 
+
+
+
+
+    
     return (
         <section class={tw`my-auto flex flex-col gap-4`}>
             <h1 class={tw`text-5xl lg:text-6xl font-bold uppercase  text_flip`}>
