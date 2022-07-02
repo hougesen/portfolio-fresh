@@ -2,8 +2,10 @@
 import { h } from 'preact';
 import { tw } from '@twind';
 import Navigation from '../islands/Navigation.tsx';
+import { Head } from '$fresh/runtime.ts';
 import Projects from '../islands/Projects.tsx';
 import Hero from '../islands/Hero.tsx';
+import Contact from '../islands/Contact.tsx';
 import { Handlers, PageProps } from '$fresh/server.ts';
 
 interface UnparsedUser {
@@ -66,25 +68,25 @@ export const handler: Handlers<User | null> = {
             },
             body: JSON.stringify({
                 query: `query GET_PROJECTS {
-                    user(login: "Hougesen") {
-                      pinnedItems(first: 6) {
-                        nodes {
-                          ... on Repository {
-                            name
-                            languages(first: 3, orderBy: {field: SIZE, direction: DESC}) {
-                              nodes {
-                                color
-                                name
-                              }
-                            }
-                            description
-                            homepageUrl
-                            url
-                          }
-                        }
-                      }
-                    }
-                  }`,
+          user(login: "Hougesen") {
+           pinnedItems(first: 6) {
+            nodes {
+             ... on Repository {
+              name
+              languages(first: 3, orderBy: {field: SIZE, direction: DESC}) {
+               nodes {
+                color
+                name
+               }
+              }
+              description
+              homepageUrl
+              url
+             }
+            }
+           }
+          }
+         }`,
             }),
         });
 
@@ -119,16 +121,18 @@ export const handler: Handlers<User | null> = {
 
 export default function Home({ data }: PageProps<User>) {
     return (
-        <div class={tw`w-full container mx-auto  flex flex-col gap-8`}>
+        <div class={tw`w-full container mx-auto p-6 lg:p-0 flex flex-col gap-12`}>
+            <Head>
+                <link rel='stylesheet' href='/style.css' />
+            </Head>
+
             <Navigation />
 
-            <div>
-                <Hero />
-            </div>
+            <Hero />
 
-            <div>
-                <Projects projects={data.projects} />
-            </div>
+            <Projects projects={data.projects} />
+
+            <Contact />
         </div>
     );
 }

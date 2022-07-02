@@ -1,0 +1,11 @@
+:root {
+    --highlight-color: red;
+}
+
+.text__highlight {
+    color: var(--highlight-color);
+}
+
+.text__highlight--hover:hover {
+    color: var(--highlight-color);
+}

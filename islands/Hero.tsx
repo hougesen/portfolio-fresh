@@ -1,25 +1,23 @@
 /** @jsx h */
 import { h } from 'preact';
 import { tw } from '@twind';
-import { useState } from 'preact/hooks';
+import Icons from './Icons.tsx';
 
 function Text() {
-    const [highlightColor, setHighlightColor] = useState('#ff142e');
-
     function randomHighlightColor(): void {
-        console.log('hello');
+        const root = document.documentElement;
+
         const min = 70;
         const max = 360;
-        const color = `hsla(${Math.floor(Math.random() * (max - min) + min)}, 80%, 50%, 1)`;
+        const color = `hsl(${Math.floor(Math.random() * (max - min) + min)}, 80%, 50%)`;
 
-        setHighlightColor(color);
-        console.log('ASDAWD');
+        root.style.setProperty('--highlight-color', color);
     }
 
     return (
-        <div class={tw`my-auto`}>
-            <h1 class={tw`text-6xl font-bold mb-4`}>
-                <span style={{ color: highlightColor }} onMouseOver={() => randomHighlightColor()}>
+        <section class={tw`my-auto flex flex-col gap-4`}>
+            <h1 class={tw`text-5xl lg:text-6xl font-bold uppercase`}>
+                <span onMouseOver={() => randomHighlightColor()} class={tw`text__highlight`}>
                     Hi,{' '}
                 </span>
                 I'm Mads
@@ -37,13 +35,15 @@ function Text() {
                 </a>{' '}
                 while studying for my bachelor's degree in web development.
             </p>
-        </div>
+
+            <Icons />
+        </section>
     );
 }
 
 function Image() {
     return (
-        <picture class={tw`w-9/12 md:w-fit order-first md:order-1 mr-auto md:mr-0 ml-auto md:text-right`}>
+        <picture class={tw`w-9/12 lg:w-fit order-first lg:order-1 mr-auto lg:mr-0 ml-auto lg:text-right`}>
             <source srcset='/mads-hougesen-image.webp' type='image/webp' />
 
             <source srcset='/mads-hougesen-image.png' type='image/png' />
@@ -51,7 +51,7 @@ function Image() {
             <img
                 src='/mads-hougesen-image.png'
                 alt='Image of Mads Hougesen'
-                class={tw`mr-auto md:mr-0 ml-auto md:text-right`}
+                class={tw`mr-auto lg:mr-0 ml-auto lg:text-right`}
             />
         </picture>
     );
@@ -59,7 +59,7 @@ function Image() {
 
 export default function Hero() {
     return (
-        <div class={tw`w-full grid grid-cols-1 md:grid-cols-2 gap-4`}>
+        <div class={tw`w-full grid grid-cols-1 lg:grid-cols-2 gap-4`}>
             <Text />
 
             <Image />
