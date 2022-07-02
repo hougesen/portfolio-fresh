@@ -121,7 +121,7 @@ export const handler: Handlers<User | null> = {
 
 export default function Home({ data }: PageProps<User>) {
     return (
-        <div class={tw`w-full container mx-auto p-6 lg:p-0 flex flex-col gap-12`}>
+        <div class={tw`w-full container mx-auto p-6 lg:p-0 flex flex-col gap-12 text-[#101010]`}>
             <Head>
                 <link rel='stylesheet' href='/style.css' />
             </Head>
