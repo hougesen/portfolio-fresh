@@ -36,7 +36,7 @@ export interface IProject {
         name: string;
         color: string;
     }[];
-    url: string;
+    url?: string;
     homepageUrl?: string;
 }
 
@@ -117,7 +117,6 @@ export const handler: Handlers<User | null> = {
                 },
             ],
             homepageUrl: 'https://stron.gr/',
-            url: '',
         });
 
         return ctx.render(parsedUser);
