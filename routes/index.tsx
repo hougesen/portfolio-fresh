@@ -67,26 +67,31 @@ export const handler: Handlers<User | null> = {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                query: `query GET_PROJECTS {
-          user(login: "Hougesen") {
-           pinnedItems(first: 6) {
-            nodes {
-             ... on Repository {
-              name
-              languages(first: 3, orderBy: {field: SIZE, direction: DESC}) {
-               nodes {
-                color
-                name
-               }
-              }
-              description
-              homepageUrl
-              url
-             }
-            }
-           }
-          }
-         }`,
+                query: `
+                    query GET_PROJECTS {
+                        user(login: "Hougesen") {
+                            pinnedItems(first: 6) {
+                                nodes {
+                                    ... on Repository {
+                                        name
+                                        languages(
+                                            first: 3
+                                            orderBy: { field: SIZE, direction: DESC }
+                                        ) {
+                                            nodes {
+                                                color
+                                                name
+                                            }
+                                        }
+                                        description
+                                        homepageUrl
+                                        url
+                                    }
+                                }
+                            }
+                        }
+                    }
+                `,
             }),
         });
 
@@ -100,7 +105,7 @@ export const handler: Handlers<User | null> = {
 
         parsedUser.projects.unshift({
             name: 'Strongr',
-            description: 'Fitness tracker web app made using Nuxt (TypeScript), Node/Express & MongoDB. ',
+            description: 'Fitness tracker web app made using Nuxt (TypeScript), Express & MongoDB. ',
             languages: [
                 {
                     color: '#41b883',
@@ -123,7 +128,45 @@ export default function Home({ data }: PageProps<User>) {
     return (
         <div class={tw`w-full container mx-auto p-6 lg:p-0 flex flex-col gap-12 text-[#101010]`}>
             <Head>
+                <title>Mads Hougesen | Software Developer</title>
+                <meta
+                    name='description'
+                    content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
+                />
+
+                <title>Mads Hougesen | Software Developer</title>
+                <meta name='title' content='Mads Hougesen | Software Developer' />
+                <meta
+                    name='description'
+                    content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
+                />
+
+                <meta property='og:type' content='website' />
+                <meta property='og:url' content='https://mhouge.dk/' />
+                <meta property='og:title' content='Mads Hougesen | Software Developer' />
+                <meta
+                    property='og:description'
+                    content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
+                />
+                <meta property='og:image' content='/mads-hougesen-image.png' />
+
+                <meta property='twitter:card' content='summary_large_image' />
+                <meta property='twitter:url' content='https://mhouge.dk/' />
+                <meta property='twitter:title' content='Mads Hougesen | Software Developer' />
+                <meta
+                    property='twitter:description'
+                    content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
+                />
+                <meta property='twitter:image' content='/mads-hougesen-image.png'></meta>
+
                 <link rel='stylesheet' href='/style.css' />
+
+                <link rel='preconnect' href='https://fonts.googleapis.com' />
+                <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+                <link
+                    href='https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&display=swap'
+                    rel='stylesheet'
+                />
             </Head>
 
             <Navigation />
