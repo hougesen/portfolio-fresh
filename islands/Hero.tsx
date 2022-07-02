@@ -15,7 +15,7 @@ function Text() {
     }
 
     return (
-        <section class={tw`my-auto flex flex-col gap-4`}>
+        <div class={tw`my-auto flex flex-col gap-4`}>
             <h1 class={tw`text-5xl lg:text-6xl font-bold uppercase  text_flip`}>
                 <span onMouseOver={() => randomHighlightColor()} class={tw`text__highlight`}>
                     Hi,{' '}
@@ -37,7 +37,7 @@ function Text() {
             </p>
 
             <Icons />
-        </section>
+        </div>
     );
 }
 
@@ -59,10 +59,10 @@ function Image() {
 
 export default function Hero() {
     return (
-        <div class={tw`w-full grid grid-cols-1 lg:grid-cols-2 gap-4`}>
+        <section class={tw`w-full grid grid-cols-1 lg:grid-cols-2 gap-4`}>
             <Text />
 
             <Image />
-        </div>
+        </section>
     );
 }

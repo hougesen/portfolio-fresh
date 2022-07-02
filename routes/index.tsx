@@ -7,6 +7,7 @@ import Projects from '../islands/Projects.tsx';
 import Hero from '../islands/Hero.tsx';
 import Contact from '../islands/Contact.tsx';
 import { Handlers, PageProps } from '$fresh/server.ts';
+import { asset } from '$fresh/runtime.ts';
 
 interface UnparsedUser {
     data: {
@@ -147,7 +148,7 @@ export default function Home({ data }: PageProps<User>) {
                     property='og:description'
                     content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
                 />
-                <meta property='og:image' content='/mads-hougesen-image.png' />
+                <meta property='og:image' content='https://mhouge.dk/mads-hougesen-image.png' />
 
                 <meta property='twitter:card' content='summary_large_image' />
                 <meta property='twitter:url' content='https://mhouge.dk/' />
@@ -156,9 +157,9 @@ export default function Home({ data }: PageProps<User>) {
                     property='twitter:description'
                     content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
                 />
-                <meta property='twitter:image' content='/mads-hougesen-image.png'></meta>
+                <meta property='twitter:image' content='https://mhouge.dk/mads-hougesen-image.png' />
 
-                <link rel='stylesheet' href='/style.css' />
+                <link rel='stylesheet' href={asset('/style.css')} />
 
                 <link rel='preconnect' href='https://fonts.googleapis.com' />
                 <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='true' />
