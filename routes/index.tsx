@@ -63,7 +63,7 @@ export const handler: Handlers<User | null> = {
             method: 'POST',
             headers: {
                 // NOTE: Remember to set this
-                authorization: `Bearer ${Deno.env.get('PERSONAL_ACCESS_TOKEN')} `,
+                authorization: `Bearer ${Deno.env.get('PERSONAL_ACCESS_TOKEN')}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -93,9 +93,9 @@ export const handler: Handlers<User | null> = {
                     }
                 `,
             }),
-        });
+        }).catch(() => undefined);
 
-        const unparsedUser: UnparsedUser = await resp.json();
+        const unparsedUser: UnparsedUser = resp ? await resp.json() : null;
 
         const parsedUser = unparsedUser ? parseUserData(unparsedUser) : { projects: [] };
 
