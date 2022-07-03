@@ -51,7 +51,7 @@ export default function Article(props: PageProps<IArticle>) {
 
             <Navigation />
 
-            <article class={tw`prose`}>{props.data.article}</article>
+            <article class={tw`prose lg:prose-lg mx-auto container`}>{props.data.article}</article>
         </div>
     );
 }
