@@ -10,6 +10,7 @@ export const H4Regex = /^(#### .*$)/;
 export const H5Regex = /^(##### .*$)/;
 export const H6Regex = /^(###### .*$)/;
 export const LINKRegex = /(\[.*\])\((.*?)\)/;
+export const IMGRegex = /(\!\[.*\])\((.*?)\)/;
 
 export function parseLink(text: string): { linkText: string; linkLocation: string } {
     const linkParts = text?.replace('[', '')?.replace('](', ' ')?.replace(']', '').replace(')', '');
@@ -32,6 +33,30 @@ export function parseLink(text: string): { linkText: string; linkLocation: strin
     return {
         linkText,
         linkLocation,
+    };
+}
+
+export function parseImage(text: string): {
+    src: string;
+    alt: string;
+    title: string;
+} {
+    const imageParts = text?.replace('![', '')?.replace('](', ' ')?.replace(']', '').replace(')', '');
+
+    let [src, alt, title, ..._] = imageParts.split(' ');
+
+    if (!src.includes('http')) {
+        try {
+            const fullSrc = new URL(`https://${src}`);
+            src = fullSrc.href;
+        } catch (_error) {
+            // not external
+        }
+    }
+    return {
+        alt: alt ?? title ?? '',
+        src,
+        title: title ?? alt ?? '',
     };
 }
 
@@ -81,6 +106,12 @@ export function parseLine(line: string) {
                 })}
             </p>
         );
+    }
+
+    if (IMGRegex.test(line)) {
+        const { src, title, alt } = parseImage(line);
+
+        return <img src={src} alt={alt} title={title} />;
     }
 
     return <p class={tw`text__flip`}>{line?.trim()}</p>;
