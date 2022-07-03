@@ -63,7 +63,7 @@ export const handler: Handlers<User | null> = {
             method: 'POST',
             headers: {
                 // NOTE: Remember to set this
-                authorization: `Bearer ${Deno.env.get('PERSONAL_ACCESS_TOKEN')}`,
+                authorization: `Bearer ${Deno.env.get('PERSONAL_ACCESS_TOKEN')} `,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -125,7 +125,7 @@ export const handler: Handlers<User | null> = {
 
 export default function Home({ data }: PageProps<User>) {
     return (
-        <div class={tw`w-full container mx-auto p-6 lg:p-0 flex flex-col gap-12 text-[#101010]`}>
+        <div class={tw`w-full container mx-auto py-6 px-12 flex flex-col gap-12 text-[#101010]`}>
             <SiteHead />
 
             <Navigation />
