@@ -4,6 +4,10 @@
     --white: #fff;
 }
 
+* {
+    transition: 0.2s;
+}
+
 .text_flip {
     color: var(--black);
 }
