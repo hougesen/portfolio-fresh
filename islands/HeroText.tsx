@@ -16,19 +16,19 @@ export default function HeroText() {
 
     return (
         <div class={tw`my-auto flex flex-col gap-4`}>
-            <h1 class={tw`text-5xl lg:text-6xl font-bold uppercase  text_flip`}>
+            <h1 class={tw`text-5xl lg:text-6xl font-bold uppercase  text__flip`}>
                 <span onMouseOver={() => randomHighlightColor()} class={tw`text__highlight`}>
                     Hi,{' '}
                 </span>
                 I'm Mads
             </h1>
 
-            <p class={tw`text-2xl  text_flip`}>
+            <p class={tw`text-2xl  text__flip`}>
                 I am a software developer from Denmark. Lover of all things programming. Currently into Rust, Python and
                 TypeScript.
             </p>
 
-            <p class={tw`text-2xl  text_flip`}>
+            <p class={tw`text-2xl  text__flip`}>
                 I work @{' '}
                 <a href='https://cavea.io' rel='noreferrer noopener' target='_blank' class={tw`underline`}>
                     cavea.io

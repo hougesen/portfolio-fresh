@@ -8,11 +8,11 @@
     transition: 0.2s;
 }
 
-.text_flip {
+.text__flip {
     color: var(--black);
 }
 
-.text_flip--reverse {
+.text__flip--reverse {
     color: var(--white);
 }
 
@@ -33,11 +33,11 @@ body {
         background: var(--black);
     }
 
-    .text_flip {
+    .text__flip {
         color: var(--white);
     }
 
-    .text_flip--reverse {
+    .text__flip--reverse {
         color: var(--black);
     }
 
