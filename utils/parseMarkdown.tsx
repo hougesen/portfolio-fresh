@@ -2,6 +2,7 @@
 /** @jsxFrag Fragment */
 import { h } from 'preact';
 import { tw } from '@twind';
+import { validDate } from './validDate.ts';
 
 export const H1Regex = /^(# .*$)/;
 export const H2Regex = /^(## .*$)/;
@@ -92,10 +93,60 @@ export function parseLine(line: string) {
     return <p>{line?.trim()}</p>;
 }
 
-export function parseMetaData(data: string) {}
+export interface IArticleMetaData {
+    title?: string;
+    author?: string;
+    createdDate?: Date;
+    lastUpdatedDate?: Date;
+}
 
-export function parseMarkdown(fileContent: string) {
-    const lines = fileContent?.split('\n');
+export interface IArticle {
+    metadata?: IArticleMetaData;
+    article: h.JSX.Element;
+}
 
-    return <article class={tw`prose lg:prose-xl`}>{lines?.map((l) => parseLine(l))}</article>;
+export function parseMetaData(data: string): IArticleMetaData {
+    const metadata: IArticleMetaData = {};
+
+    for (const line of data.split('\n')) {
+        if (line.includes('TITLE:')) {
+            metadata.title = line?.replace('TITLE:', '').trim();
+        } else if (line.includes('AUTHOR:')) {
+            metadata.author = line?.replace('AUTHOR:', '').trim();
+        } else if (line.includes('CREATED_DATE:')) {
+            const unvalidatedDate = line?.replace('CREATED_DATE:', '')?.trim();
+            if (validDate(unvalidatedDate)) {
+                metadata.createdDate = new Date(unvalidatedDate);
+            }
+        } else if (line.includes('UPDATED_DATE:')) {
+            const unvalidatedDate = line?.replace('UPDATED_DATE:', '')?.trim();
+            if (validDate(unvalidatedDate)) {
+                metadata.createdDate = new Date(unvalidatedDate);
+            }
+        }
+    }
+
+    return metadata;
+}
+
+export function parseArticle(lines: string) {
+    const split = lines?.trim()?.split('\n');
+
+    return <article class={tw`prose lg:prose-xl`}>{split?.map((l) => parseLine(l))}</article>;
+}
+
+export function parseMarkdown(fileContent: string): IArticle {
+    if (fileContent.includes('---')) {
+        const [_, metaData, lines] = fileContent?.trim()?.split('---');
+
+        return {
+            metadata: parseMetaData(metaData),
+            article: parseArticle(lines),
+        };
+    } else {
+        return {
+            metadata: undefined,
+            article: parseArticle(fileContent),
+        };
+    }
 }
