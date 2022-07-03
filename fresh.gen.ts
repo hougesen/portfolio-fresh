@@ -7,6 +7,7 @@ import * as $$0 from './islands/Hero.tsx';
 import * as $$1 from './islands/HeroText.tsx';
 import * as $$2 from './islands/Project.tsx';
 import * as $$3 from './islands/ProjectList.tsx';
+import * as $$4 from './islands/SiteHead.tsx';
 
 const manifest = {
     routes: {
@@ -17,6 +18,7 @@ const manifest = {
         './islands/HeroText.tsx': $$1,
         './islands/Project.tsx': $$2,
         './islands/ProjectList.tsx': $$3,
+        './islands/SiteHead.tsx': $$4,
     },
     baseUrl: import.meta.url,
 };

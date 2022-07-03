@@ -2,12 +2,11 @@
 import { h } from 'preact';
 import { tw } from '@twind';
 import Navigation from '../components/Navigation.tsx';
-import { Head } from '$fresh/runtime.ts';
 import ProjectList from '../islands/ProjectList.tsx';
 import Hero from '../islands/Hero.tsx';
+import SiteHead from '../islands/SiteHead.tsx';
 import Contact from '../components/Contact.tsx';
 import { Handlers, PageProps } from '$fresh/server.ts';
-import { asset } from '$fresh/runtime.ts';
 
 interface UnparsedUser {
     data: {
@@ -127,47 +126,7 @@ export const handler: Handlers<User | null> = {
 export default function Home({ data }: PageProps<User>) {
     return (
         <div class={tw`w-full container mx-auto p-6 lg:p-0 flex flex-col gap-12 text-[#101010]`}>
-            <Head>
-                <title>Mads Hougesen | Software Developer</title>
-                <meta
-                    name='description'
-                    content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
-                />
-
-                <title>Mads Hougesen | Software Developer</title>
-                <meta name='title' content='Mads Hougesen | Software Developer' />
-                <meta
-                    name='description'
-                    content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
-                />
-
-                <meta property='og:type' content='website' />
-                <meta property='og:url' content='https://mhouge.dk/' />
-                <meta property='og:title' content='Mads Hougesen | Software Developer' />
-                <meta
-                    property='og:description'
-                    content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
-                />
-                <meta property='og:image' content='https://mhouge.dk/mads-hougesen-image.png' />
-
-                <meta property='twitter:card' content='summary_large_image' />
-                <meta property='twitter:url' content='https://mhouge.dk/' />
-                <meta property='twitter:title' content='Mads Hougesen | Software Developer' />
-                <meta
-                    property='twitter:description'
-                    content='Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
-                />
-                <meta property='twitter:image' content='https://mhouge.dk/mads-hougesen-image.png' />
-
-                <link rel='stylesheet' href={asset('/style.css')} />
-
-                <link rel='preconnect' href='https://fonts.googleapis.com' />
-                <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='true' />
-                <link
-                    href='https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&display=swap'
-                    rel='stylesheet'
-                />
-            </Head>
+            <SiteHead />
 
             <Navigation />
 
