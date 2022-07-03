@@ -7,6 +7,8 @@ import { Handlers, PageProps } from '$fresh/server.ts';
 import SiteHead from '../../islands/SiteHead.tsx';
 import { parseMarkdown, IArticle } from '../../utils/parseMarkdown.tsx';
 
+const savedPages: { [key: string]: IArticle } = {};
+
 export const handler: Handlers<IArticle> = {
     async GET(_req, ctx) {
         const slug = ctx.params.slug;
@@ -19,10 +21,21 @@ export const handler: Handlers<IArticle> = {
             });
         }
 
+        if (savedPages[slug] !== undefined && savedPages[slug] !== null) {
+            const res = ctx.render(savedPages[slug]);
+
+            return res;
+        }
+
         try {
             const fileContent = await Deno.readTextFile(url);
 
             const { metadata, article } = parseMarkdown(fileContent);
+
+            savedPages[slug] = {
+                article,
+                metadata,
+            };
 
             const res = ctx.render({
                 article,
