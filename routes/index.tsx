@@ -1,11 +1,11 @@
 /** @jsx h */
 import { h } from 'preact';
 import { tw } from '@twind';
-import Navigation from '../islands/Navigation.tsx';
+import Navigation from '../components/Navigation.tsx';
 import { Head } from '$fresh/runtime.ts';
-import Projects from '../islands/Projects.tsx';
+import ProjectList from '../islands/ProjectList.tsx';
 import Hero from '../islands/Hero.tsx';
-import Contact from '../islands/Contact.tsx';
+import Contact from '../components/Contact.tsx';
 import { Handlers, PageProps } from '$fresh/server.ts';
 import { asset } from '$fresh/runtime.ts';
 
@@ -173,7 +173,7 @@ export default function Home({ data }: PageProps<User>) {
 
             <Hero />
 
-            <Projects projects={data.projects} />
+            <ProjectList projects={data.projects} />
 
             <Contact />
         </div>

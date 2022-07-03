@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { tw } from '@twind';
 import { IProject } from '../routes/index.tsx';
 
-function Project({ project }: { project: IProject }) {
+export default function Project({ project }: { project: IProject }) {
     return (
         <section class={tw`w-full bg-white p-4 flex flex-col border border-solid border-[#101010] min-h-[12rem]`}>
             <div class={tw`flex`}>
@@ -35,19 +35,5 @@ function Project({ project }: { project: IProject }) {
                 ))}
             </div>
         </section>
-    );
-}
-
-export default function Projects({ projects }: { projects: IProject[] }) {
-    return (
-        <div>
-            <h1 class={tw`uppercase text-4xl lg:text-5xl font-bold mb-4  text_flip`}>Projects</h1>
-
-            <div class={tw`grid grid-cols-1 lg:grid-cols-3 gap-8`}>
-                {projects.map((project) => (
-                    <Project project={project} />
-                ))}
-            </div>
-        </div>
     );
 }
