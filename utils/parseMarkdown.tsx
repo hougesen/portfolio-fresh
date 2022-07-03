@@ -2,6 +2,7 @@
 import { h } from 'preact';
 import { tw } from '@twind';
 import { validDate } from '../utils/validDate.ts';
+import { asset } from '$fresh/runtime.ts';
 
 export const H1Regex = /^(# .*$)/;
 export const H2Regex = /^(## .*$)/;
@@ -13,7 +14,7 @@ export const LINKRegex = /(\[.*\])\((.*?)\)/;
 export const IMGRegex = /(\!\[.*\])\((.*?)\)/;
 
 export function parseLink(text: string): { linkText: string; linkLocation: string } {
-    const linkParts = text?.replace('[', '')?.replace('](', ' ')?.replace(']', '').replace(')', '');
+    const linkParts = text?.replace('[', '')?.replace('](', ' ')?.replace(')', '');
 
     const [linkText, linkLocation, ..._] = linkParts.split(' ');
 
@@ -39,24 +40,14 @@ export function parseLink(text: string): { linkText: string; linkLocation: strin
 export function parseImage(text: string): {
     src: string;
     alt: string;
-    title: string;
 } {
-    const imageParts = text?.replace('![', '')?.replace('](', ' ')?.replace(']', '').replace(')', '');
+    const imageParts = text?.replace('![', '')?.replace(')', '');
 
-    let [src, alt, title, ..._] = imageParts.split(' ');
+    const [alt, src] = imageParts?.split('](');
 
-    if (!src.includes('http')) {
-        try {
-            const fullSrc = new URL(`https://${src}`);
-            src = fullSrc.href;
-        } catch (_error) {
-            // not external
-        }
-    }
     return {
-        alt: alt ?? title ?? '',
         src,
-        title: title ?? alt ?? '',
+        alt,
     };
 }
 
@@ -85,6 +76,22 @@ export function parseLine(line: string) {
         return <h6 class={tw`text__flip`}>{line?.replace('###### ', '')?.trim()}</h6>;
     }
 
+    if (IMGRegex.test(line)) {
+        const { src, alt } = parseImage(line);
+
+        return (
+            <img
+                src={src ?? ''}
+                alt={alt}
+                style={{
+                    textAlign: 'center',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                }}
+            />
+        );
+    }
+
     if (LINKRegex.test(line)) {
         const parts = line?.trim()?.split(' ');
 
@@ -106,12 +113,6 @@ export function parseLine(line: string) {
                 })}
             </p>
         );
-    }
-
-    if (IMGRegex.test(line)) {
-        const { src, title, alt } = parseImage(line);
-
-        return <img src={src} alt={alt} title={title} />;
     }
 
     return <p class={tw`text__flip`}>{line?.trim()}</p>;
