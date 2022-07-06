@@ -4,7 +4,7 @@ import { h } from 'preact';
 import { tw } from '@twind';
 import Navigation from '../../components/Navigation.tsx';
 import { Handlers, PageProps } from '$fresh/server.ts';
-import SiteHead from '../../islands/SiteHead.tsx';
+import { Head, asset } from '$fresh/runtime.ts';
 import { parseMarkdown, IMarkdown } from 'https://esm.sh/mrkdwny@latest';
 
 const savedPages: { [key: string]: IMarkdown } = {};
@@ -54,7 +54,67 @@ export const handler: Handlers<IMarkdown> = {
 export default function BlogPost(props: PageProps<IMarkdown>) {
     return (
         <div class={tw`w-full container mx-auto py-6 px-6 lg:px-12 flex flex-col gap-12 text-[#101010]`}>
-            <SiteHead />
+            <Head>
+                <title>{props?.data?.metadata?.title?.toString() ?? 'Mads Hougesen | Software Developer'}</title>
+
+                <meta
+                    name='title'
+                    content={props?.data?.metadata?.title?.toString() ?? 'Mads Hougesen | Software Developer'}
+                />
+
+                <meta
+                    name='description'
+                    content={
+                        props?.data?.metadata?.description?.toString() ??
+                        'Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
+                    }
+                />
+
+                <meta property='og:type' content='website' />
+                <meta property='og:url' content={'https://mhouge.dk/'} />
+                <meta
+                    property='og:title'
+                    content={props?.data?.metadata?.title?.toString() ?? 'Mads Hougesen | Software Developer'}
+                />
+                <meta
+                    property='og:description'
+                    content={
+                        props?.data?.metadata?.description?.toString() ??
+                        'Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
+                    }
+                />
+                <meta
+                    property='og:image'
+                    content={props?.data?.metadata?.image?.toString() ?? 'https://mhouge.dk/mads-hougesen-image.png'}
+                />
+
+                <meta property='twitter:card' content='summary_large_image' />
+                <meta property='twitter:url' content={'https://mhouge.dk/'} />
+                <meta
+                    property='twitter:title'
+                    content={props?.data?.metadata?.title?.toString() ?? 'Mads Hougesen | Software Developer'}
+                />
+                <meta
+                    property='twitter:description'
+                    content={
+                        props?.data?.metadata?.description?.toString() ??
+                        'Software developer from Denmark. Lover of all things programming - but  always learning new stuff.'
+                    }
+                />
+                <meta
+                    property='twitter:image'
+                    content={props?.data?.metadata?.image?.toString() ?? 'https://mhouge.dk/mads-hougesen-image.png'}
+                />
+
+                <link rel='stylesheet' href={asset('/style.css')} />
+
+                <link rel='preconnect' href='https://fonts.googleapis.com' />
+                <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='true' />
+                <link
+                    href='https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&display=swap'
+                    rel='stylesheet'
+                />
+            </Head>
 
             <Navigation />
 
