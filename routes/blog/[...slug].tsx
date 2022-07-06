@@ -6,10 +6,15 @@ import Navigation from '../../components/Navigation.tsx';
 import { Handlers, PageProps } from '$fresh/server.ts';
 import { Head, asset } from '$fresh/runtime.ts';
 import { parseMarkdown, IMarkdown } from 'https://esm.sh/mrkdwny@0.7.2';
+import unslugText from '../../utils/unslugText.ts';
 
-const savedPages: { [key: string]: IMarkdown } = {};
+interface PageData extends IMarkdown {
+    slug: string;
+}
 
-export const handler: Handlers<IMarkdown> = {
+const savedPages: { [key: string]: PageData } = {};
+
+export const handler: Handlers<PageData> = {
     async GET(_req, ctx) {
         const slug = ctx.params.slug;
         const url = new URL(`../../blog/${ctx.params.slug}.md`, import.meta.url);
@@ -55,11 +60,13 @@ export const handler: Handlers<IMarkdown> = {
             savedPages[slug] = {
                 html,
                 metadata,
+                slug,
             };
 
             const res = ctx.render({
                 html,
                 metadata,
+                slug,
             });
 
             return res;
@@ -71,16 +78,21 @@ export const handler: Handlers<IMarkdown> = {
     },
 };
 
-export default function BlogPost(props: PageProps<IMarkdown>) {
+export default function BlogPost(props: PageProps<PageData>) {
+    let siteTitle = 'Mads Hougesen | Software Developer';
+
+    if (props?.data?.metadata?.title) {
+        siteTitle = props?.data?.metadata?.title?.toString()?.trim() + ' | Mads Hougesen';
+    } else if (props?.data?.slug?.length) {
+        siteTitle = unslugText(props?.data?.slug) + ' | Mads Hougesen';
+    }
+
     return (
         <div class={tw`w-full container mx-auto py-6 px-6 lg:px-12 flex flex-col gap-12 text-[#101010]`}>
             <Head>
-                <title>{props?.data?.metadata?.title?.toString() ?? 'Mads Hougesen | Software Developer'}</title>
+                <title>{siteTitle}</title>
 
-                <meta
-                    name='title'
-                    content={props?.data?.metadata?.title?.toString() ?? 'Mads Hougesen | Software Developer'}
-                />
+                <meta name='title' content={siteTitle} />
 
                 <meta
                     name='description'
@@ -92,10 +104,7 @@ export default function BlogPost(props: PageProps<IMarkdown>) {
 
                 <meta property='og:type' content='website' />
                 <meta property='og:url' content={'https://mhouge.dk/'} />
-                <meta
-                    property='og:title'
-                    content={props?.data?.metadata?.title?.toString() ?? 'Mads Hougesen | Software Developer'}
-                />
+                <meta property='og:title' content={siteTitle} />
                 <meta
                     property='og:description'
                     content={
@@ -110,10 +119,7 @@ export default function BlogPost(props: PageProps<IMarkdown>) {
 
                 <meta property='twitter:card' content='summary_large_image' />
                 <meta property='twitter:url' content={'https://mhouge.dk/'} />
-                <meta
-                    property='twitter:title'
-                    content={props?.data?.metadata?.title?.toString() ?? 'Mads Hougesen | Software Developer'}
-                />
+                <meta property='twitter:title' content={siteTitle} />
                 <meta
                     property='twitter:description'
                     content={
