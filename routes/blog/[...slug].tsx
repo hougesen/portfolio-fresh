@@ -43,7 +43,7 @@ export const handler: Handlers<PageData> = {
                     },
                     code: {
                         class: 'text__flip--reverse bg__flip',
-                        style: 'border-radius: 1px; padding: 1rem; margin-top: 1rem; margin-bottom: 1rem;',
+                        style: 'border-radius: 0.25rem; padding: 1rem; margin-top: 1rem; margin-bottom: 1rem;',
                     },
                     a: { class: 'text__flip' },
                     strong: { class: 'text__flip' },
