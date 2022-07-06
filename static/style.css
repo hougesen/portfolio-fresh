@@ -9,7 +9,7 @@
 }
 
 .text__flip {
-    color: var(--black);
+    color: var(--black) !important;
 }
 
 .text__flip--reverse {
@@ -34,7 +34,7 @@ body {
     }
 
     .text__flip {
-        color: var(--white);
+        color: var(--white) !important ;
     }
 
     .text__flip--reverse {
