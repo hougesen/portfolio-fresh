@@ -56,3 +56,11 @@ body {
 .text__highlight--hover:hover {
     color: var(--highlight-color) !important;
 }
+
+.prose code::before {
+    content: '' !important;
+}
+
+.prose code::after {
+    content: '' !important;
+}

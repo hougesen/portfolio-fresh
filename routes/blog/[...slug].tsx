@@ -5,7 +5,7 @@ import { tw } from '@twind';
 import Navigation from '../../components/Navigation.tsx';
 import { Handlers, PageProps } from '$fresh/server.ts';
 import { Head, asset } from '$fresh/runtime.ts';
-import { parseMarkdown, IMarkdown } from 'https://esm.sh/mrkdwny@latest';
+import { parseMarkdown, IMarkdown } from 'https://esm.sh/mrkdwny@0.7.2';
 
 const savedPages: { [key: string]: IMarkdown } = {};
 
@@ -30,7 +30,27 @@ export const handler: Handlers<IMarkdown> = {
         try {
             const fileContent = await Deno.readTextFile(url);
 
-            const { metadata, html } = parseMarkdown(fileContent);
+            const { metadata, html } = parseMarkdown(fileContent, {
+                elements: {
+                    p: { class: 'text__flip' },
+                    img: {
+                        style: 'text-align: center; margin: auto; border-radius: 0.25rem;',
+                    },
+                    code: {
+                        class: 'text__flip--reverse bg__flip',
+                        style: 'border-radius: 1px; padding: 1rem; margin-top: 1rem; margin-bottom: 1rem;',
+                    },
+                    a: { class: 'text__flip' },
+                    strong: { class: 'text__flip' },
+                    em: { class: 'text__flip' },
+                    h1: { class: 'text__flip' },
+                    h2: { class: 'text__flip' },
+                    h3: { class: 'text__flip' },
+                    h4: { class: 'text__flip' },
+                    h5: { class: 'text__flip' },
+                    h6: { class: 'text__flip' },
+                },
+            });
 
             savedPages[slug] = {
                 html,
