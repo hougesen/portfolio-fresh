@@ -5,11 +5,11 @@ import { tw } from '@twind';
 import Navigation from '../../components/Navigation.tsx';
 import { Handlers, PageProps } from '$fresh/server.ts';
 import SiteHead from '../../islands/SiteHead.tsx';
-import { parseMarkdown, IArticle } from '../../utils/parseMarkdown.tsx';
+import { parseMarkdown, IMarkdown } from 'https://esm.sh/mrkdwny@latest';
 
-const savedPages: { [key: string]: IArticle } = {};
+const savedPages: { [key: string]: IMarkdown } = {};
 
-export const handler: Handlers<IArticle> = {
+export const handler: Handlers<IMarkdown> = {
     async GET(_req, ctx) {
         const slug = ctx.params.slug;
         const url = new URL(`../../blog/${ctx.params.slug}.md`, import.meta.url);
@@ -30,15 +30,15 @@ export const handler: Handlers<IArticle> = {
         try {
             const fileContent = await Deno.readTextFile(url);
 
-            const { metadata, article } = parseMarkdown(fileContent);
+            const { metadata, html } = parseMarkdown(fileContent);
 
             savedPages[slug] = {
-                article,
+                html,
                 metadata,
             };
 
             const res = ctx.render({
-                article,
+                html,
                 metadata,
             });
 
@@ -51,20 +51,17 @@ export const handler: Handlers<IArticle> = {
     },
 };
 
-export default function Article(props: PageProps<IArticle>) {
+export default function BlogPost(props: PageProps<IMarkdown>) {
     return (
         <div class={tw`w-full container mx-auto py-6 px-6 lg:px-12 flex flex-col gap-12 text-[#101010]`}>
-            <SiteHead
-                title={
-                    props?.data?.metadata?.title
-                        ? props?.data?.metadata?.title + ' | Mads Hougesen'
-                        : 'Mads Hougesen | Software Developer'
-                }
-            />
+            <SiteHead />
 
             <Navigation />
 
-            <article class={tw`prose lg:prose-lg mx-auto container`}>{props.data.article}</article>
+            <article
+                class={tw`prose lg:prose-lg mx-auto container`}
+                dangerouslySetInnerHTML={{ __html: props?.data?.html }}
+            ></article>
         </div>
     );
 }
