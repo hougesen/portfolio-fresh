@@ -1,4 +1,6 @@
-# fresh project
+# portfolio-fresh
+
+My current portfolio combined with my markdown parser, [mrkdwny](https://github.com/hougesen/mrkdwny), for the blog
 
 ### Usage
 
