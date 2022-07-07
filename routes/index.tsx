@@ -172,7 +172,7 @@ export default function Home({ data }: PageProps<User>) {
                 <script async src='https://www.googletagmanager.com/gtag/js?id=UA-45233401-2'></script>
                 <script>
                     {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
-gtag("js",new Date());gtag("config","UA-45233401-2")`}
+gtag('js',new Date());gtag('config','UA-45233401-2')`}
                 </script>
             </Head>
 
