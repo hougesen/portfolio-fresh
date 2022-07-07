@@ -57,8 +57,15 @@ const parseUserData = (unparsed: UnparsedUser): User => {
     };
 };
 
+let lastUpdatedProjects = new Date(0);
+let userDate: User | null = null;
+
 export const handler: Handlers<User | null> = {
     async GET(_, ctx) {
+        if (userDate?.projects?.length && new Date().getTime() - lastUpdatedProjects.getTime() < 4 * 3600) {
+            return ctx.render(userDate);
+        }
+
         const resp = await fetch('https://api.github.com/graphql', {
             method: 'POST',
             headers: {
@@ -113,11 +120,14 @@ export const handler: Handlers<User | null> = {
                 },
                 {
                     color: '#f1e05a',
-                    name: 'JavaScript',
+                    name: 'TypeScript',
                 },
             ],
             homepageUrl: 'https://stron.gr/',
         });
+
+        lastUpdatedProjects = new Date();
+        userDate = parsedUser;
 
         return ctx.render(parsedUser);
     },
