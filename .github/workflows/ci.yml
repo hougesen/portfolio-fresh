@@ -30,15 +30,23 @@ jobs:
             - uses: EndBug/add-and-commit@v7
               with:
                   message: 'ci: formatting changes'
+
     generate-sitemap:
         runs-on: ${{ matrix.os }}
+
         strategy:
             matrix:
                 os: [ubuntu-latest]
+                deno: [1.x]
+
         steps:
+            - uses: actions/checkout@v2
+
+            - name: Setup Deno
             - uses: denoland/setup-deno@v1
               with:
-                  deno-version: v1.x
+                  deno-version: ${{ matrix.deno }}
+
             - name: generate-sitemap
               run: deno task generate-sitemap
 
