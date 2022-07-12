@@ -1,6 +1,7 @@
 {
     "tasks": {
-        "start": "deno run -A --watch=static/,routes/ dev.ts"
+        "start": "deno run -A --watch=static/,routes/ dev.ts",
+        "generate-sitemap": "deno run --allow-read --allow-write ./utils/generateSitemap.ts"
     },
     "importMap": "./import_map.json"
 }
