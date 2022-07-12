@@ -6,50 +6,23 @@ on:
             - master
 
 jobs:
-    formatter:
-        runs-on: ${{ matrix.os }}
-
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node: [16]
-
+    ci:
+        runs-on: ubuntu-20.04
         steps:
-            - name: Checkout 🛎
-              uses: actions/checkout@master
-
-            - name: Setup node env 🏗
-              uses: actions/setup-node@v2.1.2
+            - uses: actions/checkout@v3
+            - uses: denoland/setup-deno@v1.0.0
               with:
-                  node-version: ${{ matrix.node }}
-                  check-latest: true
+                  deno-version: v1.x
 
-            - name: Run format 💎
-              run: npx prettier --write --ignore-path .gitignore .
+            #- run: deno fmt
 
-            - uses: EndBug/add-and-commit@v7
-              with:
-                  message: 'ci: formatting changes'
+            #- uses: EndBug/add-and-commit@v7
+            #  with:
+            #      message: 'ci: formatting changes'
 
-    generate-sitemap:
-        runs-on: ${{ matrix.os }}
+            - run: deno lint
 
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                deno: [1.x]
-
-        steps:
-            - uses: actions/checkout@v2
-
-            - name: Setup Deno
-            - uses: denoland/setup-deno@v1
-              with:
-                  deno-version: ${{ matrix.deno }}
-
-            - name: generate-sitemap
-              run: deno task generate-sitemap
-
+            - run: deno task generate-sitemap
             - uses: EndBug/add-and-commit@v7
               with:
                   message: 'ci: generated sitemap.xml'
