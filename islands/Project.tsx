@@ -19,7 +19,7 @@ export default function Project({ project }: { project: IProject }) {
             <div class={tw`flex mt-auto`}>
                 {project.languages.map((language) => (
                     <div
-                        class={tw`text-sm mr-2 rounded-sm px-2 py-1 /* text__flip--reverse */ bg__flip  `}
+                        class={tw`text-sm mr-2 rounded-sm px-2 py-1`}
                         style={{
                             'background-color': language.color,
                         }}
@@ -27,11 +27,8 @@ export default function Project({ project }: { project: IProject }) {
                         <p
                             key={language.name}
                             style={{
-                                color: '#fff',
-                                textShadow: '4px 4px 8px ' + language.color,
-                                //      color: language.color,
-                                //   filter: 'brightness(10%)',
-                                //    filter: 'invert(1) brightness(50%)',
+                                color: language.color,
+                                filter: 'brightness(10%)',
                             }}
                         >
                             {language.name}
