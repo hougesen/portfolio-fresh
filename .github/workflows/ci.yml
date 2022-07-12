@@ -1,4 +1,4 @@
-name: formatter
+name: ci
 
 on:
     push:
@@ -29,4 +29,19 @@ jobs:
 
             - uses: EndBug/add-and-commit@v7
               with:
-                  message: 'Formatting changes from formatter.yml'
+                  message: 'ci: formatting changes'
+    generate-sitemap:
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+        steps:
+            - uses: denoland/setup-deno@v1
+              with:
+                  deno-version: v1.x
+            - name: generate-sitemap
+              run: deno task generate-sitemap
+
+            - uses: EndBug/add-and-commit@v7
+              with:
+                  message: 'ci: generated sitemap.xml'
