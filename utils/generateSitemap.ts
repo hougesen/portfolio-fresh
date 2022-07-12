@@ -18,8 +18,11 @@ async function generateSitemap() {
     routes.push(...(await getBlogPost()));
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+    let textSitemap = '';
 
     for (let i = 0; i < routes.length; i += 1) {
+        textSitemap += baseDomain + routes[i].loc + '\n';
+
         xml += `<url><loc>${baseDomain + routes[i].loc}</loc><lastmod>${
             routes[i]?.lastmod?.toISOString() ?? new Date()?.toISOString()
         }</lastmod></url>`;
@@ -27,7 +30,13 @@ async function generateSitemap() {
 
     xml += '</urlset>';
 
-    await Deno.writeTextFile(`./static/sitemap.xml`, xml);
+    await Deno.writeTextFile(`./static/sitemap.xml`, xml).catch((error) =>
+        console.error('Error creating sitemap.xml', error)
+    );
+
+    await Deno.writeTextFile(`./static/urllist.txt`, textSitemap).catch((error) =>
+        console.error('Error creating urllist.txt', error)
+    );
 }
 
 generateSitemap();
