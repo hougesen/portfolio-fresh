@@ -45,6 +45,7 @@ body {
 }
 
 .project {
+    border-color: var(--black);
     box-shadow: none;
 }
 
@@ -70,6 +71,10 @@ body {
     }
     .logo {
         filter: invert(0);
+    }
+
+    .project {
+        border-color: var(--white);
     }
 
     .project:hover {

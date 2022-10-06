@@ -5,9 +5,7 @@ import { IProject } from '../routes/index.tsx';
 
 export default function Project({ project }: { project: IProject }) {
     return (
-        <div
-            class={tw`w-full bg-[#f7f7f7] p-4 flex flex-col border-2 rounded border-solid border-[#101010] min-h-[12rem] dark:(border-[#f7f7f7]) project`}
-        >
+        <div class={tw`w-full bg-[#f7f7f7] p-4 flex flex-col border-2 rounded border-solid min-h-[12rem] project`}>
             <div class={tw`flex`}>
                 <a href={project?.url ?? project?.homepageUrl} target='_blank' rel='noreferrer noopener'>
                     <h2 class={tw`text-xl font-semibold mb-1 lowercase text-[#101010]`}>{project.name}</h2>
