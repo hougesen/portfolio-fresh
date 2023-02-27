@@ -7,6 +7,8 @@ import Hero from '../islands/Hero.tsx';
 import Contact from '../components/Contact.tsx';
 import { Handlers, PageProps } from '$fresh/server.ts';
 import { Head, asset } from '$fresh/runtime.ts';
+import type { BlogPostMetadata } from '../utils/generateBlogPostsFile.ts';
+import BlogPostList from '../islands/BlogPostList.tsx';
 
 interface UnparsedUser {
     data: {
@@ -60,10 +62,33 @@ const parseUserData = (unparsed: UnparsedUser): User => {
 let lastUpdatedProjects = new Date(0);
 let userDate: User | null = null;
 
-export const handler: Handlers<User | null> = {
+type PageData = {
+    user: User | null;
+    posts: BlogPostMetadata[] | null;
+};
+
+const pageData: {
+    user: User | null;
+    posts: BlogPostMetadata[] | null;
+} = {
+    user: null,
+    posts: null,
+};
+
+export const handler: Handlers<PageData> = {
     async GET(_, ctx) {
-        if (userDate?.projects?.length && new Date().getTime() - lastUpdatedProjects.getTime() < 4 * 3600) {
-            return ctx.render(userDate);
+        if (!pageData?.posts) {
+            try {
+                const postFile = await Deno.readTextFile('./static/posts.json');
+
+                pageData.posts = postFile?.length ? JSON.parse(postFile) : [];
+            } catch (error) {
+                console.error('Error reading /static/posts.json');
+            }
+        }
+
+        if (pageData?.user?.projects?.length && new Date().getTime() - lastUpdatedProjects.getTime() < 4 * 3600) {
+            return ctx.render(pageData);
         }
 
         const resp = await fetch('https://api.github.com/graphql', {
@@ -127,13 +152,13 @@ export const handler: Handlers<User | null> = {
         });
 
         lastUpdatedProjects = new Date();
-        userDate = parsedUser;
+        pageData.user = parsedUser;
 
-        return ctx.render(parsedUser);
+        return ctx.render(pageData);
     },
 };
 
-export default function Home({ data }: PageProps<User>) {
+export default function Home({ data }: PageProps<PageData>) {
     return (
         <div class={tw`w-full container mx-auto py-6 px-12 flex flex-col gap-12 text-[#101010]`}>
             <Head>
@@ -190,8 +215,9 @@ gtag('js',new Date());gtag('config','UA-45233401-2')`}
 
             <Hero />
 
-            <ProjectList projects={data.projects} />
-
+            <ProjectList projects={data.user?.projects ?? []} />
+            <BlogPostList posts={data?.posts ?? []} />
+            {data?.posts?.length ? <BlogPostList posts={data?.posts ?? []} /> : null}
             <Contact />
         </div>
     );

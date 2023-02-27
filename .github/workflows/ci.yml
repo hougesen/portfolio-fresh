@@ -14,15 +14,14 @@ jobs:
               with:
                   deno-version: v1.x
 
-            #- run: deno fmt
-
-            #- uses: EndBug/add-and-commit@v7
-            #  with:
-            #      message: 'ci: formatting changes'
-
             - run: deno lint
 
             - run: deno task generate-sitemap
             - uses: EndBug/add-and-commit@v7
               with:
                   message: 'ci: generated sitemap.xml'
+
+            - run: deno task generate-posts
+            - uses: EndBug/add-and-commit@v7
+              with:
+                  message: 'ci: generated posts.json'

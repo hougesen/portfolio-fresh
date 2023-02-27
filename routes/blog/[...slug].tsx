@@ -22,7 +22,7 @@ export const handler: Handlers<PageData> = {
         if (slug === '') {
             return new Response('', {
                 status: 307,
-                headers: { location: '/' },
+                headers: { location: '/blog' },
             });
         }
 

@@ -1,10 +1,8 @@
-import { getBlogPost } from './getBlogPosts.ts';
-
+import { getBlogPosts } from './getBlogPosts.ts';
 export interface SiteRoute {
     loc: string;
     lastmod: Date;
 }
-
 async function generateSitemap() {
     const baseDomain = 'https://mhouge.dk';
 
@@ -15,7 +13,7 @@ async function generateSitemap() {
         lastmod: new Date(),
     });
 
-    routes.push(...(await getBlogPost()));
+    routes.push(...(await getBlogPosts()));
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
     let textSitemap = '';
