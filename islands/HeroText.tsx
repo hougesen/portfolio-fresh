@@ -16,19 +16,19 @@ export default function HeroText() {
 
     return (
         <div class={tw`my-auto flex flex-col gap-4`}>
-            <h1 class={tw`text-5xl lg:text-6xl font-bold uppercase  text__flip`}>
+            <h1 class={tw`text-5xl lg:text-6xl font-bold uppercase text__flip`}>
                 <span onMouseOver={() => randomHighlightColor()} class={tw`text__highlight`}>
                     Hi,{' '}
                 </span>
                 I'm Mads
             </h1>
 
-            <p class={tw`text-2xl  text__flip`}>
+            <p class={tw`text-xl text__flip`}>
                 I am a software developer from Denmark. Lover of all things programming. Currently into Rust, Python and
                 TypeScript.
             </p>
 
-            <p class={tw`text-2xl  text__flip`}>
+            <p class={tw`text-xl text__flip`}>
                 I work @{' '}
                 <a
                     href='https://cavea.io?utm_source=mhouge.dk'
@@ -38,10 +38,8 @@ export default function HeroText() {
                 >
                     cavea.io
                 </a>{' '}
-                where I spend most of my time building tools for live streamers.
+                where I spend most of my time building tools for live streamers. Some projects I've worked on include:
             </p>
-
-            <p class={tw`text-2xl text__flip`}>Some projects I've worked on include:</p>
 
             <ul class={tw`ml-8 mb-4 text-xl text__flip list-disc`}>
                 <li>
@@ -64,7 +62,7 @@ export default function HeroText() {
                         target='_blank'
                         class={tw`underline`}
                     >
-                        influencer advertisements campaigns
+                        influencer campaigns
                     </a>{' '}
                     on Twitch
                 </li>
