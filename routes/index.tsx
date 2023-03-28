@@ -110,22 +110,6 @@ export const handler: Handlers<User | null> = {
             parsedUser.projects = [];
         }
 
-        parsedUser.projects.unshift({
-            name: 'Strongr',
-            description: 'Fitness tracker web app made using Nuxt (TypeScript), Express & MongoDB. ',
-            languages: [
-                {
-                    color: '#41b883',
-                    name: 'Vue',
-                },
-                {
-                    color: '#f1e05a',
-                    name: 'TypeScript',
-                },
-            ],
-            homepageUrl: 'https://stron.gr/',
-        });
-
         lastUpdatedProjects = new Date();
         userDate = parsedUser;
 
