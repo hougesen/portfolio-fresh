@@ -26,7 +26,7 @@ export default function Project({ project }: { project: IProject }) {
                             key={language.name}
                             style={{
                                 color: language.color,
-                                filter: 'brightness(10%)',
+                                filter: 'brightness(50%)',
                             }}
                         >
                             {language.name}
