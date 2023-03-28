@@ -30,11 +30,47 @@ export default function HeroText() {
 
             <p class={tw`text-2xl  text__flip`}>
                 I work @{' '}
-                <a href='https://cavea.io' rel='noreferrer noopener' target='_blank' class={tw`underline`}>
+                <a
+                    href='https://cavea.io?utm_source=mhouge.dk'
+                    rel='noreferrer noopener'
+                    target='_blank'
+                    class={tw`underline`}
+                >
                     cavea.io
                 </a>{' '}
-                while studying for my bachelor's degree in web development.
+                where I spend most of my time building tools for live streamers.
             </p>
+
+            <p class={tw`text-2xl text__flip`}>Some projects I've worked on include:</p>
+
+            <ul class={tw`ml-8 mb-4 text-xl text__flip list-disc`}>
+                <li>
+                    A tool for automatically{' '}
+                    <a
+                        href='https://capturelab.gg?utm_source=mhouge.dk'
+                        rel='noreferrer noopener'
+                        target='_blank'
+                        class={tw`underline`}
+                    >
+                        capturing highlights in livestreams
+                    </a>
+                </li>
+
+                <li>
+                    A platform for running{' '}
+                    <a
+                        href='https://adlab.gg?utm_source=mhouge.dk'
+                        rel='noreferrer noopener'
+                        target='_blank'
+                        class={tw`underline`}
+                    >
+                        influencer advertisements campaigns
+                    </a>{' '}
+                    on Twitch
+                </li>
+
+                <li>Dozens of systems for tracking social media performance</li>
+            </ul>
 
             <Icons />
         </div>
