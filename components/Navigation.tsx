@@ -4,10 +4,8 @@ import { tw } from '@twind';
 
 export default function Navigation() {
     return (
-        <div class={tw`flex py-4 logo`}>
-            <a href='/'>
-                <img src='/logo.png' alt='Mads Hougesen Logo' />
-            </a>
+        <div class={tw`py-4 text__flip text-3xl`}>
+            <a href='/'>mads hougesen</a>
         </div>
     );
 }

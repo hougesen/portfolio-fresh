@@ -119,7 +119,7 @@ export const handler: Handlers<User | null> = {
 
 export default function Home({ data }: PageProps<User>) {
     return (
-        <div class={tw`w-full container mx-auto py-6 px-12 flex flex-col gap-12 text-[#101010]`}>
+        <div class={tw`w-full container mx-auto py-6 px-12 flex flex-col gap-12 text-[#101010] !lowercase`}>
             <Head>
                 <title>{'Mads Hougesen | Software Developer'}</title>
 

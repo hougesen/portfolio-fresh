@@ -7,7 +7,7 @@ export default function Contact() {
     return (
         <section class={tw`pb-12 grid grid-cols-1 lg:grid-cols-2`}>
             <div class={tw`contact-text my-auto`}>
-                <h1 class={tw`uppercase text-4xl lg:text-5xl font-bold mb-4  text__flip`}>Wanna get in touch?</h1>
+                <h1 class={tw`lowercase text-4xl lg:text-5xl font-bold mb-4  text__flip`}>Wanna get in touch?</h1>
 
                 <p class={tw`text-xl  text__flip`}>I am always available for exciting discussions</p>
 

@@ -16,7 +16,7 @@ export default function HeroText() {
 
     return (
         <div class={tw`my-auto flex flex-col gap-4`}>
-            <h1 class={tw`text-5xl lg:text-6xl font-bold uppercase text__flip`}>
+            <h1 class={tw`text-5xl lg:text-6xl font-bold lowercase text__flip`}>
                 <span onMouseOver={() => randomHighlightColor()} class={tw`text__highlight`}>
                     Hi,{' '}
                 </span>
